@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niqoblash vositasi</title>
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --card-sub: #F1F5F9;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --input-bg: #FFFFFF;
+      --btn-primary: #0F172A;
+      --btn-primary-text: #FFFFFF;
+      --badge-ism-bg: #EFF6FF;
+      --badge-ism-text: #1D4ED8;
+      --badge-ism-border: #BFDBFE;
+      --badge-tel-bg: #ECFDF5;
+      --badge-tel-text: #047857;
+      --badge-tel-border: #A7F3D0;
+      --error-bg: #FEF2F2;
+      --error-border: #FECACA;
+      --error-text: #B91C1C;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0B1120;
+      --card: #151F32;
+      --card-sub: #0F172A;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: #1E293B;
+      --input-bg: #0B1120;
+      --btn-primary: #38BDF8;
+      --btn-primary-text: #0B1120;
+      --badge-ism-bg: #172554;
+      --badge-ism-text: #93C5FD;
+      --badge-ism-border: #1E40AF;
+      --badge-tel-bg: #064E3B;
+      --badge-tel-text: #6EE7B7;
+      --badge-tel-border: #047857;
+      --error-bg: #450A0A;
+      --error-border: #7F1D1D;
+      --error-text: #FCA5A5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 16px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--btn-primary);
+      color: var(--btn-primary-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-theme {
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-sub);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    main {
+      max-width: 1152px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .grid-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .btn-sm {
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card-sub);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .counter-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--card-sub);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .error-alert {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      color: var(--error-text);
+      font-size: 12px;
+      display: none;
+    }
+
+    .table-labels {
+      display: grid;
+      grid-template-columns: 1fr 150px 36px;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 2px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 8px;
+    }
+
+    .contact-inputs {
+      display: grid;
+      grid-template-columns: 1fr 150px 36px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    input, textarea {
+      width: 100%;
+      min-width: 0;
+      height: 38px;
+      padding: 0 10px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--input-bg);
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #38BDF8;
+    }
+
+    input.phone-input {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+    }
+
+    input.input-error {
+      background: var(--error-bg) !important;
+      border-color: var(--error-border) !important;
+      color: var(--error-text) !important;
+    }
+
+    .btn-delete {
+      width: 36px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-sub);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .btn-delete:hover {
+      color: #EF4444;
+      border-color: #F87171;
+    }
+
+    .digits-hint {
+      font-size: 10px;
+      font-family: monospace;
+      padding: 0 4px;
+      color: #10B981;
+    }
+
+    .digits-hint.error {
+      color: #EF4444;
+    }
+
+    .btn-primary {
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 8px;
+      border: none;
+      background: var(--btn-primary);
+      color: var(--btn-primary-text);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      height: 120px;
+      padding: 10px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-section {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .result-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      border-width: 1px;
+      border-style: solid;
+      margin: 0 2px;
+      vertical-align: middle;
+      user-select: all;
+    }
+
+    .badge-ism {
+      background: var(--badge-ism-bg);
+      color: var(--badge-ism-text);
+      border-color: var(--badge-ism-border);
+    }
+
+    .badge-tel {
+      background: var(--badge-tel-bg);
+      color: var(--badge-tel-text);
+      border-color: var(--badge-tel-border);
+    }
+
+    .output-box {
+      min-height: 110px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-sub);
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .mode-switch {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--card-sub);
+    }
+
+    .mode-btn {
+      padding: 4px 8px;
+      font-size: 11px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .mode-btn.active {
+      background: var(--card);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo">N</div>
+        <div>
+          <div class="brand-title">Niqoblash vositasi</div>
+          <div class="brand-sub">Ismlar va +998 telefonlarni xavfsiz niqoblash</div>
+        </div>
+      </div>
+      <button class="btn-theme" id="btn-theme" type="button">
+        <span id="theme-icon">☀️</span> <span id="theme-text">Kunduzgi</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid-container">
+      <!-- LEFT: CONTACTS -->
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Xayoliy ro'yxat</div>
+            <div class="card-desc">Maksimal 5 ta kontakt • Telefon avtomatik formatlanadi</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <button class="btn-sm" id="btn-reset" type="button">Tiklash</button>
+            <div class="counter-badge" id="contact-counter">5/5</div>
+          </div>
+        </div>
+
+        <div class="error-alert" id="error-alert"></div>
+
+        <div class="table-labels">
+          <div>Ism Familiya</div>
+          <div>Telefon (+998)</div>
+          <div></div>
+        </div>
+
+        <div id="contacts-list"></div>
+
+        <div>
+          <button class="btn-primary" id="btn-add" type="button">+ Yangi qo'shish</button>
+        </div>
+      </section>
+
+      <!-- RIGHT: TEST & RESULT -->
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Test matni</div>
+            <div class="card-desc">Matndagi ismlar va telefonlar avtomatik niqoblanadi</div>
+          </div>
+        </div>
+
+        <div style="position: relative;">
+          <textarea id="input-text" placeholder="Matn kiriting... Masalan: Mening ismim Sardor Aliyev va raqamim +998901234567"></textarea>
+          <div style="position: absolute; bottom: 8px; right: 8px; font-size: 10px; color: var(--text-muted); font-family: monospace;" id="char-counter">0 belgi</div>
+        </div>
+
+        <div class="actions-bar">
+          <button class="btn-sm" id="btn-sample" type="button" style="height: 36px; padding: 0 12px;">Namuna matn</button>
+          <button class="btn-primary" id="btn-mask" type="button" style="height: 36px;">Niqoblash</button>
+          <button class="btn-sm" id="btn-clear" type="button" style="height: 36px; padding: 0 12px; margin-left: auto;">Tozalash</button>
+        </div>
+
+        <div class="result-section">
+          <div class="result-head">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Natija</span>
+              <div id="stats-badges" style="display: flex; gap: 6px;"></div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px;" id="result-controls">
+              <div class="mode-switch">
+                <button type="button" class="mode-btn active" id="mode-badges">Belgilar</button>
+                <button type="button" class="mode-btn" id="mode-raw">Xom matn</button>
+              </div>
+              <button class="btn-sm" id="btn-copy" type="button" style="height: 26px;">Nusxa olish</button>
+            </div>
+          </div>
+
+          <div class="output-box" id="output-box">
+            Niqoblangan matn shu yerda paydo bo'ladi.<br>
+            <span class="badge-tag badge-ism">ISM</span> va <span class="badge-tag badge-tel">TELEFON</span> avtomatik ajratiladi.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Sodda va ishonchli kod • HTML, CSS va JS asosida bitta faylda
+    </footer>
+  </main>
+
+  <script>
+    const DEFAULT_CONTACTS = [
+      { id: "1", name: "Sardor Aliyev", raw: "+998 90 123 45 67", digits: "998901234567", error: false },
+      { id: "2", name: "Malika Karimova", raw: "+998 91 234 56 78", digits: "998912345678", error: false },
+      { id: "3", name: "Javohir To'xtayev", raw: "+998 93 345 67 89", digits: "998933456789", error: false },
+      { id: "4", name: "Dilnoza Raximova", raw: "+998 94 456 78 90", digits: "998944567890", error: false },
+      { id: "5", name: "Bekzod Usmonov", raw: "+998 99 567 89 01", digits: "998995678901", error: false }
+    ];
+
+    let contacts = JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
+    let currentResult = "";
+    let viewMode = "badges";
+
+    // Format UZB phone
+    function formatUzbPhone(raw) {
+      console.log("[formatUzbPhone] raw:", raw);
+      let digits = raw.replace(/\D/g, "");
+      console.log("[formatUzbPhone] digits only:", digits);
+
+      if (digits.length === 9) {
+        digits = "998" + digits;
+      } else if (digits.length === 12 && digits.startsWith("998")) {
+        // ok
+      } else if (digits.length === 13) {
+        const last12 = digits.slice(-12);
+        if (last12.startsWith("998")) {
+          digits = last12;
+        } else {
+          return { formatted: null, digits12: null, error: true };
+        }
+      } else if (digits.length === 12) {
+        if (!digits.startsWith("998")) {
+          return { formatted: null, digits12: null, error: true };
+        }
+      } else {
+        return { formatted: null, digits12: null, error: true };
+      }
+
+      if (digits.length !== 12 || !digits.startsWith("998")) {
+        return { formatted: null, digits12: null, error: true };
+      }
+
+      const formatted = "+998 " + digits.slice(3, 5) + " " + digits.slice(5, 8) + " " + digits.slice(8, 10) + " " + digits.slice(10, 12);
+      console.log("[formatUzbPhone] formatted:", formatted, "from digits:", digits);
+      return { formatted, digits12: digits, error: false };
+    }
+
+    function renderContacts() {
+      const container = document.getElementById("contacts-list");
+      container.innerHTML = "";
+      document.getElementById("contact-counter").textContent = contacts.length + "/5";
+      document.getElementById("btn-add").disabled = contacts.length >= 5;
+
+      contacts.forEach(contact => {
+        const row = document.createElement("div");
+        row.className = "contact-row";
+
+        const inputsDiv = document.createElement("div");
+        inputsDiv.className = "contact-inputs";
+
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.placeholder = "Ism Familiya";
+        nameInput.value = contact.name;
+        nameInput.oninput = (e) => { contact.name = e.target.value; };
+
+        const phoneInput = document.createElement("input");
+        phoneInput.type = "text";
+        phoneInput.className = "phone-input" + (contact.error ? " input-error" : "");
+        phoneInput.placeholder = "+998 90 123 45 67";
+        phoneInput.value = contact.raw;
+        phoneInput.oninput = (e) => {
+          contact.raw = e.target.value;
+          contact.error = false;
+          phoneInput.classList.remove("input-error");
+        };
+        phoneInput.onblur = () => {
+          if (!contact.raw.trim()) {
+            contact.digits = "";
+            renderContacts();
+            return;
+          }
+          const res = formatUzbPhone(contact.raw);
+          if (res.error || !res.formatted || !res.digits12) {
+            contact.error = true;
+          } else {
+            // Check duplicate
+            const isDup = contacts.some(c => c.id !== contact.id && c.digits === res.digits12);
+            if (isDup) {
+              showError("Bu raqam allaqachon mavjud: " + res.formatted);
+              contact.error = true;
+            } else {
+              contact.formatted = res.formatted;
+              contact.raw = res.formatted;
+              contact.digits = res.digits12;
+              contact.error = false;
+            }
+          }
+          renderContacts();
+        };
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "btn-delete";
+        delBtn.type = "button";
+        delBtn.innerHTML = "&#128465;";
+        delBtn.title = "O'chirish";
+        delBtn.onclick = () => {
+          contacts = contacts.filter(c => c.id !== contact.id);
+          renderContacts();
+        };
+
+        inputsDiv.appendChild(nameInput);
+        inputsDiv.appendChild(phoneInput);
+        inputsDiv.appendChild(delBtn);
+
+        const hintDiv = document.createElement("div");
+        hintDiv.className = "digits-hint" + (contact.error ? " error" : "");
+        if (contact.digits && !contact.error) {
+          hintDiv.textContent = "✓ " + contact.digits;
+        } else if (contact.error) {
+          hintDiv.textContent = "✗ Noto'g'ri raqam";
+        }
+
+        row.appendChild(inputsDiv);
+        row.appendChild(hintDiv);
+        container.appendChild(row);
+      });
+    }
+
+    function showError(msg) {
+      const el = document.getElementById("error-alert");
+      el.textContent = msg;
+      el.style.display = "block";
+      setTimeout(() => { el.style.display = "none"; }, 3500);
+    }
+
+    // Add contact
+    document.getElementById("btn-add").onclick = () => {
+      if (contacts.length >= 5) return;
+      contacts.push({ id: Date.now().toString(), name: "", raw: "", digits: "", error: false });
+      renderContacts();
+    };
+
+    // Reset contacts
+    document.getElementById("btn-reset").onclick = () => {
+      contacts = JSON.parse(JSON.stringify(DEFAULT_CONTACTS));
+      renderContacts();
+    };
+
+    // Sample text
+    document.getElementById("btn-sample").onclick = () => {
+      document.getElementById("input-text").value = "Assalomu alaykum, men Sardor Aliyev. Mening raqamim +998 90 123 45 67. Do'stim Malika Karimova raqami +998 91 234 56 78. Iltimos Javohir To'xtayev bilan bog'laning.";
+      updateCharCount();
+    };
+
+    // Clear
+    document.getElementById("btn-clear").onclick = () => {
+      document.getElementById("input-text").value = "";
+      currentResult = "";
+      updateCharCount();
+      document.getElementById("stats-badges").innerHTML = "";
+      document.getElementById("output-box").innerHTML = "Niqoblangan matn shu yerda paydo bo'ladi.<br><span class=\"badge-tag badge-ism\">ISM</span> va <span class=\"badge-tag badge-tel\">TELEFON</span> avtomatik ajratiladi.";
+    };
+
+    function updateCharCount() {
+      const len = document.getElementById("input-text").value.length;
+      document.getElementById("char-counter").textContent = len + " belgi";
+    }
+
+    document.getElementById("input-text").oninput = updateCharCount;
+
+    // Mask text
+    document.getElementById("btn-mask").onclick = () => {
+      const input = document.getElementById("input-text").value;
+      if (!input.trim()) return;
+
+      let text = input;
+      const validContacts = contacts.filter(c => c.digits && c.digits.length === 12);
+      const registeredDigits = new Set(validContacts.map(c => c.digits));
+
+      const phoneRegex = /(\+?998[\s\-]?\(?\d{2}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2})|(\+998\d{9})|(\b\d{2}[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}\b)/g;
+
+      text = text.replace(phoneRegex, (match) => {
+        const rawDigits = match.replace(/\D/g, "");
+        let normalized = null;
+        const res = formatUzbPhone(match);
+        if (res.digits12) {
+          normalized = res.digits12;
+        } else if (rawDigits.length === 9) {
+          normalized = "998" + rawDigits;
+        }
+        if (normalized && registeredDigits.has(normalized)) {
+          return "[TELEFON]";
+        }
+        return match;
+      });
+
+      validContacts.forEach(c => {
+        if (!c.name.trim()) return;
+        const escaped = c.name.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const reg = new RegExp(escaped, "gi");
+        text = text.replace(reg, "[ISM]");
+      });
+
+      text = text.replace(/(\[TELEFON\](\s*\[TELEFON\])+)/g, "[TELEFON]");
+      text = text.replace(/(\[ISM\](\s*\[ISM\])+)/g, "[ISM]");
+
+      currentResult = text;
+
+      const telCount = (text.match(/\[TELEFON\]/g) || []).length;
+      const ismCount = (text.match(/\[ISM\]/g) || []).length;
+
+      document.getElementById("stats-badges").innerHTML = 
+        '<span class="badge-tag badge-ism">' + ismCount + ' ta [ISM]</span>' +
+        '<span class="badge-tag badge-tel">' + telCount + ' ta [TELEFON]</span>';
+
+      renderOutput();
+    };
+
+    function renderOutput() {
+      const box = document.getElementById("output-box");
+      if (!currentResult) return;
+
+      if (viewMode === "raw") {
+        box.textContent = currentResult;
+      } else {
+        const parts = currentResult.split(/(\[ISM\]|\[TELEFON\])/g);
+        box.innerHTML = "";
+        parts.forEach(part => {
+          if (part === "[ISM]") {
+            const span = document.createElement("span");
+            span.className = "badge-tag badge-ism";
+            span.textContent = "ISM";
+            box.appendChild(span);
+          } else if (part === "[TELEFON]") {
+            const span = document.createElement("span");
+            span.className = "badge-tag badge-tel";
+            span.textContent = "TELEFON";
+            box.appendChild(span);
+          } else {
+            box.appendChild(document.createTextNode(part));
+          }
+        });
+      }
+    }
+
+    // Mode switch
+    document.getElementById("mode-badges").onclick = () => {
+      viewMode = "badges";
+      document.getElementById("mode-badges").classList.add("active");
+      document.getElementById("mode-raw").classList.remove("active");
+      renderOutput();
+    };
+
+    document.getElementById("mode-raw").onclick = () => {
+      viewMode = "raw";
+      document.getElementById("mode-raw").classList.add("active");
+      document.getElementById("mode-badges").classList.remove("active");
+      renderOutput();
+    };
+
+    // Copy result
+    document.getElementById("btn-copy").onclick = () => {
+      if (!currentResult) return;
+      navigator.clipboard.writeText(currentResult).then(() => {
+        const btn = document.getElementById("btn-copy");
+        btn.textContent = "Nusxalandi!";
+        setTimeout(() => { btn.textContent = "Nusxa olish"; }, 2000);
+      });
+    };
+
+    // Theme toggle
+    const themeBtn = document.getElementById("btn-theme");
+    let currentTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+    function applyTheme(t) {
+      currentTheme = t;
+      document.documentElement.setAttribute("data-theme", t);
+      localStorage.setItem("theme", t);
+      document.getElementById("theme-icon").textContent = t === "dark" ? "🌙" : "☀️";
+      document.getElementById("theme-text").textContent = t === "dark" ? "Tungi" : "Kunduzgi";
+    }
+
+    themeBtn.onclick = () => {
+      applyTheme(currentTheme === "dark" ? "light" : "dark");
+    };
+
+    // Init
+    applyTheme(currentTheme);
+    renderContacts();
+  </script>
+</body>
+</html>
